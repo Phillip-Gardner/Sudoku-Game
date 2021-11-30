@@ -67,24 +67,21 @@ public class GameLogic {
     private static boolean rowOfSquaresIsInvalid(Rows value, int[][] grid) {
         switch(value) {
             case TOP:
-                if (squaresAreInvalid(0, 0, grid)) return true;
-                if (squaresAreInvalid(0, 3, grid)) return true;
-                if (squaresAreInvalid(0, 6, grid)) return true;
-                return false;
+                IsRowOfSquaresInvalid(grid, 0);
             case MIDDLE:
-                if (squaresAreInvalid(3, 0, grid)) return true;
-                if (squaresAreInvalid(3, 3, grid)) return true;
-                if (squaresAreInvalid(3, 6, grid)) return true;
-                return false;
-
+                IsRowOfSquaresInvalid(grid, 3);
             case BOTTOM:
-                if (squaresAreInvalid(6, 0, grid)) return true;
-                if (squaresAreInvalid(6, 3, grid)) return true;
-                if (squaresAreInvalid(6, 6, grid)) return true;
-                return false;
+                IsRowOfSquaresInvalid(grid, 6);
             default:
                 return false;
         }
+    }
+
+    private static boolean IsRowOfSquaresInvalid(int[][] grid, int xIndex) {
+        if (squaresAreInvalid(xIndex, 0, grid)) return true;
+        if (squaresAreInvalid(xIndex, 3, grid)) return true;
+        if (squaresAreInvalid(xIndex, 6, grid)) return true;
+        return false;
     }
 
     private static boolean squaresAreInvalid(int xIndex, int yIndex, int[][] grid) {
@@ -95,9 +92,7 @@ public class GameLogic {
         
         while (yIndex < yIndexEnd) {
             while (xIndex < xIndexEnd) {
-                square.add(
-                        grid[xIndex][yIndex]
-                );
+                square.add(grid[xIndex][yIndex]);
                 
                 xIndex++;
             }
@@ -113,7 +108,6 @@ public class GameLogic {
         for (int index = 1; index <= GRID_BOUNDARY; index++ ) {
             if (Collections.frequency(collection, index) > 1) return true;
         }
-        
         return false;
     }
 

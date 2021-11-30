@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.phillipgardner.sudokugame.computationlogic.SudokuUtilities.createNewGrid;
 import static com.phillipgardner.sudokugame.problemdomain.SudokuGame.GRID_BOUNDARY;
 
 public class GameGenerator {
@@ -14,11 +15,20 @@ public class GameGenerator {
     }
 
     private static int[][] unsolveGame(int[][] solvedGame) {
-        Random random = new Random(System.currentTimeMillis());
+        Random random = createRandom();
 
         boolean solvable = false;
-        int[][] solvableArray = new int[GRID_BOUNDARY][GRID_BOUNDARY];
 
+        int[][] solvableArray = createNewGrid();
+
+        return initCoordinates(solvedGame, solvable, solvableArray, random);
+    }
+
+    private static Random createRandom() {
+        return new Random(System.currentTimeMillis());
+    }
+
+    public static int[][] initCoordinates(int[][] solvedGame, Boolean solvable, int[][] solvableArray, Random random) {
         while (!solvable) {
             SudokuUtilities.copySudokuArrayValues(solvedGame, solvableArray);
 
@@ -34,19 +44,17 @@ public class GameGenerator {
                 }
             }
 
-            int[][] toBeSolved = new int[GRID_BOUNDARY][GRID_BOUNDARY];
+            int[][] toBeSolved = createNewGrid();
             SudokuUtilities.copySudokuArrayValues(solvableArray, toBeSolved);
 
             solvable = SudokuSolver.puzzleIsSolvable(toBeSolved);
-
         }
-
         return  solvableArray;
     }
 
     private static  int[][] getSolvedGame() {
         Random random = new Random(System.currentTimeMillis());
-        int[][] newGrid = new int[GRID_BOUNDARY][GRID_BOUNDARY];
+        int[][] newGrid = createNewGrid();
 
         for (int value = 1; value <= GRID_BOUNDARY; value++) {
             int allocations = 0;

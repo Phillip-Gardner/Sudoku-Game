@@ -2,22 +2,28 @@ package com.phillipgardner.sudokugame.computationlogic;
 
 import com.phillipgardner.sudokugame.problemdomain.SudokuGame;
 
+import static com.phillipgardner.sudokugame.problemdomain.SudokuGame.GRID_BOUNDARY;
+
 public class SudokuUtilities {
     public static void copySudokuArrayValues(int[][] oldArray, int[][] newArray) {
-        for (int xIndex = 0; xIndex < SudokuGame.GRID_BOUNDARY; xIndex++){
-            for (int yIndex = 0; yIndex < SudokuGame.GRID_BOUNDARY; yIndex++) {
+        for (int xIndex = 0; xIndex < GRID_BOUNDARY; xIndex++){
+            for (int yIndex = 0; yIndex < GRID_BOUNDARY; yIndex++) {
                 newArray[xIndex][yIndex] = oldArray[xIndex][yIndex];
             }
         }
     }
 
     public static int[][] copyToNewArray(int[][] oldArray) {
-        int[][] newArray = new int[SudokuGame.GRID_BOUNDARY][SudokuGame.GRID_BOUNDARY];
-        for (int xIndex = 0; xIndex < SudokuGame.GRID_BOUNDARY; xIndex++){
-            for (int yIndex = 0; yIndex < SudokuGame.GRID_BOUNDARY; yIndex++) {
+        int[][] newArray = createNewGrid();
+        for (int xIndex = 0; xIndex < GRID_BOUNDARY; xIndex++){
+            for (int yIndex = 0; yIndex < GRID_BOUNDARY; yIndex++) {
                 newArray[xIndex][yIndex] = oldArray[xIndex][yIndex];
             }
         }
         return newArray;
+    }
+
+    public static int[][] createNewGrid() {
+        return new int[GRID_BOUNDARY][GRID_BOUNDARY];
     }
 }
